@@ -9,6 +9,7 @@ bash /tmp/gcl --disable-prompts >> install-gcloud.log
 
 ```bash
 gcloud auth login # requires user interaction
+gcloud config set project instabase-appx
 ```
 
 3. Go into the webapp and deploy it:
@@ -21,5 +22,6 @@ make build-docker run-docker deploy-dev
 4. Go into the backend app and deploy it:
 
 ```bash
-# to be done / added
+cd task-tracker-backend
+make build-docker run-docker deploy-dev
 ```

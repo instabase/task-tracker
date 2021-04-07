@@ -2,7 +2,7 @@ import motor.motor_asyncio
 from bson.objectid import ObjectId
 from pymongo import ReturnDocument
 
-MONGO_DETAILS = "mongodb://localhost:27017"
+MONGO_DETAILS = "mongodb+srv://appx-app:Xgd9LayEiGmMMHkI@cluster0.dcecc.mongodb.net/tasks?retryWrites=true&w=majority"
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 database = client.tasks
 task_collection = database.get_collection("task_collection")
