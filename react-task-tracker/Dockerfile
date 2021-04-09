@@ -1,7 +1,6 @@
 FROM nginx:1.19.9
 COPY nginx.conf /etc/nginx/conf.d/configfile.template
-
-COPY ./build /app/build /usr/share/nginx/html
+COPY ./build /usr/share/nginx/html
 
 ENV PORT 8080
 ENV HOST 0.0.0.0

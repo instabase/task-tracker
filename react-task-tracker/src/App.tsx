@@ -23,14 +23,14 @@ function App() {
 
   // Fetch tasks
   const fetchTasks = async () => {
-    const res = await renderRequest('task/');
+    const res = await renderRequest('task/', {});
     const response = await res.json();
     return response['data'];
   };
 
   // Fetch task
   const fetchTask = async (id: number) => {
-    const res = await renderRequest(`task/${id}`);
+    const res = await renderRequest(`task/${id}`, {});
     const response = await res.json();
     const data = response['data'];
     return data;
