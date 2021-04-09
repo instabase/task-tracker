@@ -9,6 +9,7 @@ origins = [
     "http://localhost:8080",
     "http://localhost:3000",
     "http://localhost:8000",
+    "https://appx-webapp-cn4iaeqs6q-wn.a.run.app",
 ]
 
 app.add_middleware(
