@@ -5,6 +5,8 @@ GCLOUD_DOCKER_NAME_PREFIX=$(GCLOUD_CONTAINER_URL)/$(GCLOUD_PROJ_NAME)
 
 
 build-docker:
+	npm install 
+	npm run build
 	docker build . -t $(WEBAPP_IMAGE_NAME):$(USER)
 
 push-docker:
