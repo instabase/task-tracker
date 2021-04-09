@@ -7,6 +7,7 @@ import AddTask from './components/AddTask';
 import Footer from './components/Footer';
 import About from './components/About';
 import { taskType } from './types/task';
+import renderRequest from "./Backend.js"
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
@@ -22,14 +23,14 @@ function App() {
 
   // Fetch tasks
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:8000/task/');
+    const res = await renderRequest('task/');
     const response = await res.json();
     return response['data'];
   };
 
   // Fetch task
   const fetchTask = async (id: number) => {
-    const res = await fetch(`http://localhost:8000/task/${id}`);
+    const res = await renderRequest(`task/${id}`);
     const response = await res.json();
     const data = response['data'];
     return data;
@@ -37,13 +38,13 @@ function App() {
 
   // Delete task
   const deleteTask = async (id: number) => {
-    await fetch(`http://localhost:8000/task/${id}`, { method: 'DELETE' });
+    await renderRequest(`task/${id}`, { method: 'DELETE' });
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
   // Add task
   const addTask = async (task: taskType) => {
-    const res = await fetch('http://localhost:8000/task', {
+    const res = await renderRequest('task', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -63,7 +64,7 @@ function App() {
   const toggleReminder = async (id: number) => {
     const taskToToggle = await fetchTask(id);
     const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
-    const res = await fetch(`http://localhost:8000/task/${id}`, {
+    const res = await renderRequest(`task/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
