@@ -7,7 +7,7 @@ import AddTask from './components/AddTask';
 import Footer from './components/Footer';
 import About from './components/About';
 import { taskType } from './types/task';
-import renderRequest from "./Backend.js"
+import renderRequest from "./BackendAPIs.js"
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);

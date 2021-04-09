@@ -16,4 +16,4 @@ deploy-dev:
 		--platform=managed \
 		--image=$(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME)  \
 		--region=us-west4 \
-		--no-allow-unauthenticated
+		--allow-unauthenticated
