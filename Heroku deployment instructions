@@ -3,16 +3,21 @@
 brew tap heroku/brew && brew install heroku
 ```
 
-2. Register the heroku app as a git remote
+2. Register the heroku apps as a git remote
 
 ```bash
-heroku git:Remote -a ibappx-tasktracker
+heroku git:remote -a ibappx-tasktracker-backend
+git remote rename heroku backend
+heroku git:remote -a ibappx-tasktracker-webapp
+git remote rename heroku webapp
 ```
 
 3. Register the buildpack
-
 ```bash
-heroku buildpacks:set https://github.com/negativetwelve/heroku-buildpack-subdir
+heroku buildpacks:add -a ibappx-tasktracker-webapp heroku-community/multi-procfile
+heroku buildpacks:add -a ibappx-tasktracker-backend heroku-community/multi-procfile
+heroku config:set -a ibappx-tasktracker-webapp PROCFILE=react-task-tracker/Procfile
+$ heroku config:set -a ibappx-tasktracker-backend PROCFILE=task-tracker-backend/Procfile
 ```
 
 4. Commit any code (it must be commited to deploy) and push changes:
