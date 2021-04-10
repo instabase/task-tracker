@@ -14,3 +14,9 @@ heroku git:Remote -a ibappx-tasktracker
 ```bash
 heroku buildpacks:set https://github.com/negativetwelve/heroku-buildpack-subdir
 ```
+
+4. Commit any code (it must be commited to deploy) and push changes:
+
+```bash
+git push heroku ${BRANCH_NAME}:main
+```
