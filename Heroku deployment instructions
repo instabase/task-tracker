@@ -1,0 +1,16 @@
+1. Install the heroku CLI
+```bash
+brew tap heroku/brew && brew install heroku
+```
+
+2. Register the heroku app as a git remote
+
+```bash
+heroku git:Remote -a ibappx-tasktracker
+```
+
+3. Register the buildpack
+
+```bash
+heroku buildpacks:set https://github.com/negativetwelve/heroku-buildpack-subdir
+```
