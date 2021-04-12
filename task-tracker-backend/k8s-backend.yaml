@@ -1,0 +1,45 @@
+# kubernetes-fastapi LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-tracker-backend-svc
+spec:
+  selector:
+    app: task-tracker-backend
+  ports:
+    - protocol: 'TCP'
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+# task-tracker-backend Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-tracker-backend
+  labels:
+    app: task-tracker-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-tracker-backend
+  template:
+    metadata:
+      labels:
+        app: task-tracker-backend
+    spec:
+      containers:
+        - name: task-tracker-backend
+          image: gcr.io/instabase-appx/appx-backend
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: '250m'
