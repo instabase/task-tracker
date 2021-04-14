@@ -3,3 +3,5 @@ steps:
     dir: "task-tracker-backend"
     entrypoint: "make"
     args: ["build-and-push-docker-ci"]
+    env:
+      - "BRANCH_NAME=$BRANCH_NAME"
