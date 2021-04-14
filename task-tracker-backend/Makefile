@@ -30,7 +30,7 @@ test:
 test-docker:
 	docker run -v $(CWD):/workspace $(BACKEND_IMAGE_NAME) python -m pytest /workspace/app/tests
 
-cloud-build-ci: build-docker test-docker
+push-docker: 
 	docker tag $(BACKEND_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(IMAGE_TAG)
 	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(IMAGE_TAG)
 
