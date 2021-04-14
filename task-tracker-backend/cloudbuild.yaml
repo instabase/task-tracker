@@ -2,6 +2,6 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     dir: "task-tracker-backend"
     entrypoint: "make"
-    args: ["build-docker test-docker push-docker"]
+    args: ["build-docker", "test-docker", "push-docker"]
     env:
       - "BRANCH_NAME=$BRANCH_NAME"
