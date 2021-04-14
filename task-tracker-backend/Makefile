@@ -5,10 +5,13 @@ GCLOUD_DOCKER_NAME_PREFIX=$(GCLOUD_CONTAINER_URL)/$(GCLOUD_PROJ_NAME)
 
 # Set current working directory to /workspace/task-tracker-backend if PWD is undefined
 # (PWD doesn't work on google cloud, so this is the hard-coded backup)
-CWD = $(PWD)
+CWD=$(PWD)
 ifeq ($(CWD),)
-CWD = /workspace/task-tracker-backend
+CWD=/workspace/task-tracker-backend
 endif
+
+# Docker image tag name cannot contain hyphens but branches typically do
+IMAGE_TAG=$$(echo $(BRANCH_NAME) | sed 's:/:-:g')
 
 
 build-docker:
@@ -22,12 +25,12 @@ deploy-dev:
 		--allow-unauthenticated
 
 test:
-	pytest $(CWD)
+	pytest app/tests
 
 test-docker:
 	docker run -v $(CWD):/workspace $(BACKEND_IMAGE_NAME) python -m pytest /workspace/app/tests
 
 cloud-build-ci: build-docker test-docker
-	docker tag $(BACKEND_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
-	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
+	docker tag $(BACKEND_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(IMAGE_TAG)
+	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(IMAGE_TAG)
 
