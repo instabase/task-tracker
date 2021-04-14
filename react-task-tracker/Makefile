@@ -8,7 +8,7 @@ GCLOUD_DOCKER_NAME_PREFIX=$(GCLOUD_CONTAINER_URL)/$(GCLOUD_PROJ_NAME)
 # (PWD doesn't work on google cloud, so this is the hard-coded backup)
 CWD=$(PWD)
 ifeq ($(CWD),)
-CWD=/workspace/task-tracker-backend
+CWD=/workspace/react-task-tracker
 endif
 
 # Docker image tag name cannot contain hyphens but branches typically do
