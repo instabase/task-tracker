@@ -5,12 +5,7 @@ GCLOUD_DOCKER_NAME_PREFIX=$(GCLOUD_CONTAINER_URL)/$(GCLOUD_PROJ_NAME)
 
 
 build-docker:
-	docker build . -t $(BACKEND_IMAGE_NAME):$(USER)
-
-build-and-push-docker-ci: 
 	docker build . -t $(BACKEND_IMAGE_NAME)
-	docker tag $(BACKEND_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
-	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
 
 deploy-dev:
 	gcloud run deploy $(BACKEND_IMAGE_NAME) \
@@ -22,4 +17,10 @@ deploy-dev:
 test:
 	pytest app/tests
 
+test-docker:
+	docker run $(BACKEND_IMAGE_NAME) -v $(PWD):/workspace pytest /workspace/apps/tests
+
+cloud-build-ci: build-docker test-docker
+	docker tag $(BACKEND_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
+	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
 
