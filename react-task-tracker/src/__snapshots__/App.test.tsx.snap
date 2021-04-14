@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link changes the class when hovered 1`] = `
+<div
+  className="container"
+>
+  <header
+    className="header"
+  >
+    <h1>
+       Task Tracker 
+      
+    </h1>
+    <button
+      className="btn"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "green",
+        }
+      }
+    >
+      Add
+    </button>
+  </header>
+  <p>
+    You are all done!
+  </p>
+  <footer>
+    <p>
+      Copyright © 2021
+    </p>
+    <a
+      href="/about"
+      onClick={[Function]}
+    >
+      About
+    </a>
+  </footer>
+</div>
+`;
