@@ -18,7 +18,7 @@ test:
 	pytest app/tests
 
 test-docker:
-	docker run v $(PWD):/workspace $(BACKEND_IMAGE_NAME) pytest /workspace/apps/tests
+	docker run -v $(PWD):/workspace $(BACKEND_IMAGE_NAME) pytest /workspace/apps/tests
 
 cloud-build-ci: build-docker test-docker
 	docker tag $(BACKEND_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(BACKEND_IMAGE_NAME):$(BRANCH_NAME)
