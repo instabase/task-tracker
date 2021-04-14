@@ -20,6 +20,7 @@ deploy-dev:
 		--region=us-west4 \
 		--allow-unauthenticated
 
+
 test:
 	pytest app/tests
 
