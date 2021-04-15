@@ -4,3 +4,4 @@ motor==2.2.0
 pydantic
 gunicorn
 dnspython
+pytest
