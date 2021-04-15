@@ -20,7 +20,7 @@ build-from-scratch:
 
 build-docker:
 	docker run -v $(CWD):/workspace -w /workspace $(NODE_CONTAINER) make build-from-scratch
-	docker build . -t $(WEBAPP_IMAGE_NAME):$(USER)
+	docker build . -t $(WEBAPP_IMAGE_NAME)
 
 deploy-dev:
 	gcloud run deploy $(WEBAPP_IMAGE_NAME) \
