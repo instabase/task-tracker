@@ -1,0 +1,45 @@
+# task-tracker-nginx-webapp LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-tracker-nginx-webapp-svc
+  labels:
+    run: task-tracker-nginx-webapp
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: task-tracker-nginx-webapp
+  type: LoadBalancer
+---
+# task-tracker-nginx-webapp Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: task-tracker-nginx-webapp
+  name: task-tracker-nginx-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-tracker-nginx-webapp
+  template:
+    metadata:
+      labels:
+        app: task-tracker-nginx-webapp
+    spec:
+      containers:
+      - image: gcr.io/instabase-appx/appx-webapp
+        name: webapp
+        imagePullPolicy: Always
+        resources: 
+          # You must specify requests for CPU to autoscale
+          # based on CPU utilization
+          requests:
+            cpu: '250m'
+        ports:
+          - containerPort: 8080 
