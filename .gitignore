@@ -4,3 +4,5 @@ __pycache__
 *.pyc
 *~
 rendered
+node_modules
+mypy_cache
