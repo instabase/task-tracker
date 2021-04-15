@@ -10,6 +10,12 @@ ifeq ($(CWD),)
 CWD=/workspace/task-tracker-backend
 endif
 
+# Use git to get branch name if it's not specified via environment variable
+# Branch name is not accessible via git in cloud build
+ifeq ($(BRANCH_NAME),)
+BRANCH_NAME=$$(git rev-parse --abbrev-ref HEAD)
+endif
+
 # Docker image tag name cannot contain hyphens but branches typically do
 IMAGE_TAG=$$(echo $(BRANCH_NAME) | sed 's:/:-:g')
 
