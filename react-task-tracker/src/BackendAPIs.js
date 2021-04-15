@@ -1,5 +1,5 @@
-const BACKEND_URL = 'https://appx-backend-cn4iaeqs6q-wn.a.run.app'
-const WEBAPP_URL = 'https://appx-webapp-cn4iaeqs6q-wn.a.run.app'
+const BACKEND_URL = '34.125.9.86:80'
+const WEBAPP_URL = '34.125.150.14:8080'
 
 // renderRequest creates a new HTTP request with IAM ID Token credential.
 // This token is automatically handled by private Cloud Run (fully managed) and Cloud Functions.
