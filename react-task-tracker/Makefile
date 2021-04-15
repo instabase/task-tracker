@@ -14,8 +14,8 @@ endif
 # Use git to get branch name if it's not specified via environment variable
 # Branch name is not accessible via git in cloud build
 ifeq ($(BRANCH_NAME),)
-BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-ENDIF
+BRANCH_NAME=$$(git rev-parse --abbrev-ref HEAD)
+endif
 
 # Docker image tag name cannot contain hyphens but branches typically do
 IMAGE_TAG=$$(echo $(BRANCH_NAME) | sed 's:/:-:g')
@@ -35,10 +35,9 @@ deploy-dev:
 		--region=us-west4 \
 		--allow-unauthenticated
 
-
 push-docker:
-	docker tag $(WEBAPP_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(WEBAPP_IMAGE_NAME)
-	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(WEBAPP_IMAGE_NAME)
+	docker tag $(WEBAPP_IMAGE_NAME) $(GCLOUD_DOCKER_NAME_PREFIX)/$(WEBAPP_IMAGE_NAME):$(IMAGE_TAG)
+	docker push $(GCLOUD_DOCKER_NAME_PREFIX)/$(WEBAPP_IMAGE_NAME):$(IMAGE_TAG)
 
 test:
 	# CI=true disables watch mode + prevents saving new screenshots
