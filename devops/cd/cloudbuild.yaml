@@ -5,7 +5,7 @@ steps:
       - "deploy"
       - "appx-webapp"
       - "--platform=managed"
-      - "--image=gcr.io/instabase-appx/appx-backend:cm-add-cd"
+      - "--image=gcr.io/instabase-appx/webapp:cm-add-cd"
       - "--region=us-west4"
       - "--allow-unauthenticated"
   - name: "gcr.io/cloud-builders/gcloud"
@@ -14,7 +14,7 @@ steps:
       - "deploy"
       - "appx-backend"
       - "--platform=managed"
-      - "--image=gcr.io/instabase-appx/appx-backend:cm-add-cd"
+      - "--image=gcr.io/instabase-appx/backend:cm-add-cd"
       - "--region=us-west4"
       - "--allow-unauthenticated"
     waitFor: ["-"]
