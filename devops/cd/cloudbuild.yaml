@@ -2,6 +2,8 @@ steps:
   - name: python
     entrypoint: make
     args: [install-deps, render-$_ENVIRON]
+    dir: devops/cd
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: sh
     args: [$_ENVIRON/deploy.sh]
+    dir: devops/cd
