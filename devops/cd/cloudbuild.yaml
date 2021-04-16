@@ -1,20 +1,7 @@
 steps:
-  - name: "gcr.io/cloud-builders/gcloud"
-    args:
-      - "run"
-      - "deploy"
-      - "appx-webapp"
-      - "--platform=managed"
-      - "--image=gcr.io/instabase-appx/webapp:cm-add-cd"
-      - "--region=us-west4"
-      - "--allow-unauthenticated"
-  - name: "gcr.io/cloud-builders/gcloud"
-    args:
-      - "run"
-      - "deploy"
-      - "appx-backend"
-      - "--platform=managed"
-      - "--image=gcr.io/instabase-appx/backend:cm-add-cd"
-      - "--region=us-west4"
-      - "--allow-unauthenticated"
-    waitFor: ["-"]
+  - name: python
+    entrypoint: make
+    args: [install-deps, render-$_ENVIRON]
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: sh
+    args: [$_ENVIRON/deploy.sh]
