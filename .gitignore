@@ -3,3 +3,6 @@ __pycache__
 .idea
 *.pyc
 *~
+rendered
+node_modules
+mypy_cache
