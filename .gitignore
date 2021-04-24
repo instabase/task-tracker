@@ -6,3 +6,5 @@ __pycache__
 rendered
 node_modules
 mypy_cache
+
+geckodriver.log
