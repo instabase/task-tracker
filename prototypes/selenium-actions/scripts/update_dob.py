@@ -1,4 +1,5 @@
 import argparse
+import logging
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,9 +9,6 @@ import time
 
 
 def update_dob(new_dob):
-    # firefox_profile = webdriver.FirefoxProfile(
-    #     "/Users/chetanmishra/Library/Application Support/Firefox/Profiles/e3ycs00t.default copy"
-    # )
     cookies = {
         "name": "__cfduid",
         "value": "dd6b23b7cadfe86861449903da86003a31617222746",
@@ -100,8 +98,12 @@ def update_dob(new_dob):
         "value": "v_id:01789af63f0f001aca38e3d3aea500052001900f00b78$_sn:8$_se:1$_ss:1$_st:1619201754892$dc_visit:8$ses_id:1619199954892;exp-session$_pn:1;exp-session$dc_event:1;exp-session$dc_region:us-east-1;exp-session",
     }
 
-    driver = webdriver.Firefox()
-    driver.get("https://www.zenefits.com")
+    logging.info(f"About to start the driver")
+    firefox_options = webdriver.FirefoxOptions()
+    firefox_options.add_argument("--headless")
+    driver = webdriver.Firefox(options=firefox_options)
+    logging.info(f"Started the driver")
+    driver.get("https://www.zenefits.com/")
     driver.add_cookie(cookies)
     driver.refresh()
     driver.get(
@@ -114,26 +116,25 @@ def update_dob(new_dob):
             (By.CSS_SELECTOR, 'input[aria-labelledby="zf-name-label"]',)
         )
     )
-    print(f"Waiting for name input text")
+    logging.info(f"Waiting for name input text")
     name_input = driver.find_element_by_css_selector(
         'input[aria-labelledby="zf-name-label"]'
     )
     name_input.send_keys("Deborah")
     driver.find_element_by_link_text("Bennett, Deborah").click()
-    print(f"Waiting for input to appear")
+    logging.info(f"Waiting for input to appear")
     WebDriverWait(driver, 60).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-label="Edit"]',))
     )
     driver.find_element_by_css_selector('button[aria-label="Edit"]').click()
-    print(f"Clicked on edit")
+    logging.info(f"Clicked on edit")
     WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "dob")))
     dob_input = driver.find_element_by_id("dob")
     dob_input.clear()
     dob_input.send_keys(new_dob)
     dob_input.send_keys(Keys.ENTER)
-    time.sleep(
-        3
-    )  # needed because the browser needs time to trigger the enter + send the request
+    # needed because the browser needs time to trigger the enter + send the request
+    time.sleep(3)
     driver.quit()
 
 
@@ -142,6 +143,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "--new-dob", dest="new_dob", help="What should the DOB be updated to",
     )
+    parser.add_argument("--log-level", dest="log_level", default="warning")
     args = parser.parse_args()
+    logging.basicConfig(
+        level=getattr(logging, args.log_level.upper()),
+        format="[%(levelname)s] (%(module)s.%(funcName)s) %(message)s",
+    )
+
     update_dob(args.new_dob)
 

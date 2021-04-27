@@ -5,6 +5,6 @@ __pycache__
 *~
 rendered
 node_modules
-mypy_cache
+.mypy_cache
 
 geckodriver.log
