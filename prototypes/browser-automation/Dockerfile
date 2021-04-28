@@ -18,7 +18,8 @@ RUN apt-get update -y \
     && tar -xvf geckodriver-v0.29.1-linux64.tar.gz \
     && mv geckodriver /usr/bin/geckodriver \
     && chown root:root /usr/bin/geckodriver \
-    && chmod +x /usr/bin/geckodriver
+    && chmod +x /usr/bin/geckodriver \
+    && python -m playwright install
 
 # Copy all other source code after installing reqs (so source code changes don't trigger re-installation)
 COPY . ./
