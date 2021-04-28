@@ -29,7 +29,10 @@ def update_dob(new_dob, browser):
 
     with sync_playwright() as p:
         if browser.value == "chrome":
-            browser = p.chromium.launch(channel="chrome")
+            try:
+                browser = p.chromium.launch(channel="chrome")
+            except:
+                browser = p.chromium.launch()
         elif browser.value == "firefox":
             browser = p.firefox.launch()
         else:

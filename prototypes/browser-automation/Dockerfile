@@ -12,7 +12,7 @@ WORKDIR $APP_HOME
 # Copy requirements file and then install deps
 COPY requirements.txt ./
 RUN apt-get update -y \
-    && apt-get install -y gcc libpq-dev firefox-esr \
+    && apt-get install -y gcc libpq-dev firefox-esr libnss3-dev libgbm-dev libasound-dev \
     && pip3 install -r requirements.txt --no-cache-dir \
     && wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz \
     && tar -xvf geckodriver-v0.29.1-linux64.tar.gz \
